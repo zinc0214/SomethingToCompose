@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -120,6 +121,7 @@ fun MentionedListView() {
                 CommentSelectedItemView(
                     commenter = item,
                     textSize = fontSize.value.sp,
+                    iconSize = iconSize.value.dp,
                     delete = { id ->
                         selectedFriends.removeAll { it.userId == id }
                     })
@@ -141,6 +143,7 @@ fun MentionedListView() {
 private fun CommentSelectedItemView(
     commenter: CommentMentionInfo,
     textSize: TextUnit,
+    iconSize: Dp,
     delete: (String) -> Unit
 ) {
     Row(
@@ -154,13 +157,12 @@ private fun CommentSelectedItemView(
         IconButton(
             onClick = {
                 delete(commenter.userId)
-            },
-            modifier = Modifier
-                .size(20.dp)
-                .padding(0.dp)
-        ) {
+            }) {
             Image(
                 painter = painterResource(R.drawable.baseline_close_24),
+                modifier = Modifier
+                    .size(iconSize)
+                    .padding(0.dp),
                 contentDescription = null
             )
         }
